@@ -14,6 +14,9 @@
  *
  * Ross Henderson - ross@rmlx.co.uk
  *
+ * Update 04/09/2026 : 
+ * - white parameter instead magenta
+ * - add strobe parameter in ctl[26]
  */
 
 // Require
@@ -100,7 +103,7 @@ ctl[22] = {'mode': 'encoder', 'act': 'frame_thrust_b', 'col': 41};
 ctl[23] = {'mode': 'encoder', 'act': 'frame_thrust_c', 'col': 41};
 ctl[24] = {'mode': 'encoder', 'act': 'frame_thrust_d', 'col': 41};
 ctl[25] = {'mode': 'encoder', 'act': 'frame_assembly', 'col': 45, 'unit': 'º'};
-ctl[26] = {'mode': 'inop'};
+ctl[26] = {'mode': 'encoder', 'act': 'shutter_strobe', 'col': 53};
 ctl[27] = {'mode': 'encoder', 'act': 'pan', 'col': 21, 'unit': 'º'};
 ctl[28] = {'mode': 'encoder', 'act': 'tilt', 'col': 21, 'unit': 'º'};
 ctl[29] = {'mode': 'encoder', 'act': 'red', 'col': 5};
@@ -109,13 +112,14 @@ ctl[31] = {'mode': 'encoder', 'act': ['mint','lime'], 'col': 17};
 ctl[32] = {'mode': 'encoder', 'act': 'green', 'col': 22};
 ctl[33] = {'mode': 'encoder', 'act': 'blue', 'col': 67};
 ctl[34] = {'mode': 'encoder', 'act': 'cyan', 'col': 37};
-ctl[35] = {'mode': 'encoder', 'act': 'magenta', 'col': 53};
+ctl[35] = {'mode': 'encoder', 'act': 'white', 'col': 3};
 ctl[36] = {'mode': 'encoder', 'act': 'yellow', 'col': 13};
 ctl[116] = {'mode': 'key', 'act': 'go_0', 'col': 23};
 ctl[118] = {'mode': 'key', 'act': 'stop', 'col': 121};
 ctl[103] = {'mode': 'key', 'act': 'prev', 'col': 9};
 ctl[102] = {'mode': 'key', 'act': 'next', 'col': 9};
 ctl[104] = {'mode': 'key', 'act': 'select_last', 'col': 9};
+
 
 
 // Fader Colours
@@ -170,6 +174,7 @@ function connectEos() {
     osc.send({ address: '/eos/fader/1/config/8' }, EOS_CONSOLE_IP, EOS_CONSOLE_PORT);
     osc.send({ address: '/eos/subscribe/fader', args: [{type: "f", value: 1}] }, EOS_CONSOLE_IP, EOS_CONSOLE_PORT);
     osc.send({ address: '/eos/subscribe/wheel', args: [{type: "f", value: 1}] }, EOS_CONSOLE_IP, EOS_CONSOLE_PORT);
+    osc.send({ address: '/eos/subscribe/param/shutter_strobe', args: [{type: "f", value: 1}] }, EOS_CONSOLE_IP, EOS_CONSOLE_PORT);
     // FIXME: populate this from ctl 
     // NB: it seems to hit a limit if you put all these in one line.
     osc.send({ address: '/eos/subscribe/param/intens/pan/tilt/iris/edge/zoom', args: [{type: "f", value: 1}] }, EOS_CONSOLE_IP, EOS_CONSOLE_PORT);
