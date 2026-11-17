@@ -14,9 +14,6 @@
  *
  * Ross Henderson - ross@rmlx.co.uk
  *
- * Update 04/09/2026 : 
- * - white parameter instead magenta
- * - add strobe parameter in ctl[26]
  */
 
 // Require
@@ -121,7 +118,6 @@ ctl[102] = {'mode': 'key', 'act': 'next', 'col': 9};
 ctl[104] = {'mode': 'key', 'act': 'select_last', 'col': 9};
 
 
-
 // Fader Colours
 faderTypes = [
   { 'match': /^S /, 'col_off': 10, 'col_on': 9, 'top_col': 9, 'factor': 1, 'unit': '%' }, 
@@ -177,8 +173,8 @@ function connectEos() {
     osc.send({ address: '/eos/subscribe/param/shutter_strobe', args: [{type: "f", value: 1}] }, EOS_CONSOLE_IP, EOS_CONSOLE_PORT);
     // FIXME: populate this from ctl 
     // NB: it seems to hit a limit if you put all these in one line.
-    osc.send({ address: '/eos/subscribe/param/intens/pan/tilt/iris/edge/zoom', args: [{type: "f", value: 1}] }, EOS_CONSOLE_IP, EOS_CONSOLE_PORT);
-    osc.send({ address: '/eos/subscribe/param/red/amber/mint/lime/green/blue/cyan/magenta/yellow', args: [{type: "f", value: 1}] }, EOS_CONSOLE_IP, EOS_CONSOLE_PORT);
+    osc.send({ address: '/eos/subscribe/param/intens/pan/tilt/iris/edge/zoom/shutter_strobe', args: [{type: "f", value: 1}] }, EOS_CONSOLE_IP, EOS_CONSOLE_PORT);
+    osc.send({ address: '/eos/subscribe/param/red/amber/mint/lime/green/blue/cyan/white/yellow', args: [{type: "f", value: 1}] }, EOS_CONSOLE_IP, EOS_CONSOLE_PORT);
     osc.send({ address: '/eos/subscribe/param/frame_angle_a/frame_angle_b/frame_angle_c/frame_angle_d/frame_thrust_a/frame_thrust_b/frame_thrust_c/frame_thrust_d/frame_assembly', args: [{type: "f", value: 1}] }, EOS_CONSOLE_IP, EOS_CONSOLE_PORT);
     return osc;
   }
